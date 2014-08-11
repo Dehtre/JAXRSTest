@@ -1,5 +1,6 @@
-import javax.ws.rs.client.*;
-import javax.ws.rs.core.MediaType;
+import org.jboss.resteasy.client.jaxrs.ResteasyClient;
+import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
+import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
 import javax.ws.rs.core.Response;
 
 /**
@@ -8,18 +9,25 @@ import javax.ws.rs.core.Response;
 public class HelloClient {
 
     public static void main(String[] args) {
-        Client client = ClientBuilder.newClient();
-        WebTarget target = client.target("http://localhost:8080/JAXRSTest/app/");
-        Invocation invocation = target.request().buildGet();
-        Response response = invocation.invoke();
+        ResteasyClient client = new ResteasyClientBuilder().build();
+        ResteasyWebTarget target = client.target("http://localhost:8080/JAXRSTest/app/");
 
-        //Add new
-        Entity en = new Entity(10, "b");
-        Response res1 = target.request().buildPost(javax.ws.rs.client.Entity.entity(en, MediaType.APPLICATION_XML)).invoke();
+        //Post
+        /*Something en = new Something(99, "abc");
+        Response response = target.request().post(Entity.entity(en, "application/vnd.com.demo.user-management.user+xml;charset=UTF-8;version=1"));
+        System.out.println(response.getStatus());
+        response.close();*/
 
-        //Request
-        String entityName = "a";
-        WebTarget t2 = client.target("http://localhost:8080/JAXRSTest/app" + entityName);
-        Response res = target.request().buildGet().invoke();
+        //Get number
+        int number = 12345;
+        target = client.target("http://localhost:8080/JAXRSTest/app/" + number);
+        Response response = target.request().get();
+        System.out.println(response.readEntity(Something.class).toString());
+
+        //Get name
+        String name = "abc12345";
+        target = client.target("http://localhost:8080/JAXRSTest/app/" + name);
+        response = target.request().get();
+        System.out.println(response.readEntity(Something.class).toString());
     }
 }

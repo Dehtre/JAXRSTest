@@ -21,28 +21,29 @@ public class HelloWorld {
 
     @GET
     @Path("{smth : [1-9][0-9]*}")
-    //@Produces(MediaType.APPLICATION_XML)
-    public Response getOther(@PathParam("smth") int smth) {
-        return Response.status(200).entity("Hello world2! App: " + smth).build();
+    @Produces(MediaType.APPLICATION_XML)
+    public Something getOther(@PathParam("smth") int smth) {
+        Something s = new Something();
+        s.setNumber(smth);
+        return s;
     }
 
     @GET
     @Path("{smth}")
-    //@Produces(MediaType.APPLICATION_XML)
-    public Response getOther(@PathParam("smth") String smth) {
-        // Load from db entity.name = smth
-        return Response.status(200).entity("Hello world! App: " + smth).build();
+    @Produces(MediaType.APPLICATION_XML)
+    public Something getOther(@PathParam("smth") String smth) {
+        Something s = new Something();
+        s.setName(smth);
+        return s;
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_XML)
-    public Response createEntity(Entity entity) throws URISyntaxException {
-        if (entity == null){
+    public Response createEntity(Something something) throws URISyntaxException {
+        if (something == null){
             throw new BadRequestException();
         }
 
-        // Add to database
-
-        return Response.created(context.getAbsolutePathBuilder().path(entity.getName()).build()).build();
+        return Response.created(context.getAbsolutePathBuilder().path(something.getName()).build()).build();
         }
 }
