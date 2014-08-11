@@ -13,14 +13,18 @@ import java.util.stream.Collectors;
 public class HelloWorld {
     @Context
     private UriInfo context;
+    private Boolean initiated = false;
     private static Set<Something> things = new HashSet<Something>();
 
     public HelloWorld() {
-        Something s;
-        for(int i = 0; i<10; i++) {
-            s = new Something(i);
-            things.add(s);
-            System.out.println("Added: " + s.toString() + " size: " + things.size());
+        if(!initiated) {
+            Something s;
+            for(int i = 0; i<50; i++) {
+                s = new Something(i%5);
+                things.add(s);
+                System.out.println("Added: " + s.toString() + " size: " + things.size());
+            }
+            initiated = true;
         }
     }
 
