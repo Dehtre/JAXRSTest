@@ -17,6 +17,10 @@ public class Something {
         this(new Random().nextInt(10000), randomString());
     }
 
+    public Something(int n) {
+        this(n, randomString());
+    }
+
     public Something(int n, String s) {
         this.name = s;
         this.number = n;
