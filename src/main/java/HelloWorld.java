@@ -22,7 +22,7 @@ public class HelloWorld {
             for(int i = 0; i<50; i++) {
                 s = new Something(i%5);
                 things.add(s);
-                System.out.println("Added: " + s.toString() + " size: " + things.size());
+                //System.out.println("Added: " + s.toString() + " size: " + things.size());
             }
             initiated = true;
         }
@@ -37,9 +37,8 @@ public class HelloWorld {
     @GET
     @Path("/all")
     @Produces(MediaType.APPLICATION_XML)
-    public Response getAll() {
-        Response response;
-        return null;
+    public SomethingWrapper getAll() {
+        return new SomethingWrapper(things.stream().collect(Collectors.toList()));
     }
 
     @GET
@@ -68,7 +67,7 @@ public class HelloWorld {
         }
 
         things.add(something);
-        System.out.println("Added: " + something.toString() + " size: " + things.size());
+        //System.out.println("Added: " + something.toString() + " size: " + things.size());
 
         return Response.created(context.getAbsolutePathBuilder().path(something.getName()).build()).build();
         }
