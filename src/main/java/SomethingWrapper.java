@@ -6,7 +6,9 @@ import java.util.List;
  * Created by Michał on 2014-08-11.
  */
 
+@XmlRootElement
 public class SomethingWrapper {
+    @XmlElement
     private List<Something> things;
 
     public SomethingWrapper() {

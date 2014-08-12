@@ -21,6 +21,10 @@ public class Something {
         this(n, randomString());
     }
 
+    public Something(String s) {
+        this(new Random().nextInt(1000), s);
+    }
+
     public Something(int n, String s) {
         this.name = s;
         this.number = n;

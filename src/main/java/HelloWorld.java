@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 public class HelloWorld {
     @Context
     private UriInfo context;
-    private Boolean initiated = false;
+    private static Boolean initiated = false;
     private static Set<Something> things = new HashSet<Something>();
 
     public HelloWorld() {
